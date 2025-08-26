@@ -2,12 +2,12 @@ import { Image, StyleSheet, Text, View } from "react-native";
 
 export const MovieContainer = () => {
   return (
-    <View>
-        <View style={styles.container}>
+    <View style={styles.mainContainer}>
+        <View style={styles.mainRow}>
             <Text>Nome do filme</Text>
             <Text>Nota</Text>
         </View>
-        <View>
+        <View style={styles.mainRow}>
             <View>
                 <Text>Genero - Ano</Text>
                 <Text>Descrição do filme</Text>
@@ -21,5 +21,16 @@ export const MovieContainer = () => {
 };
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        flexDirection: "row",
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: "#eee"
+    },
+    mainRow: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
     
+
 });
