@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Platform, StatusBar } from "react-native";
 
-export const Header = ({children}: {children: React.ReactNode}) => {
+const Header = ({children}: {children: React.ReactNode}) => {
     return(
         <View style={styles.container}>
             <Text style={styles.TextPrincipal}>{children}</Text>
@@ -26,4 +26,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#414141ff'
     }
-})
+});
+
+export default Header;

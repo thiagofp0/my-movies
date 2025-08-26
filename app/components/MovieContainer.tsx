@@ -1,19 +1,16 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
-export const MovieContainer = () => {
+const MovieContainer = () => {
   return (
     <View style={styles.mainContainer}>
         <View style={styles.mainRow}>
-            <Text>Nome do filme</Text>
-            <Text>Nota</Text>
+            <Text style={styles.MovieNameText}>Nome do filme</Text>
+            <Text style={styles.MovieRateText}>Nota/Nota</Text>
         </View>
         <View style={styles.mainRow}>
-            <View>
-                <Text>Genero - Ano</Text>
-                <Text>Descrição do filme</Text>
-            </View>
-            <View>
-                <Image source={{uri: 'https://image.tmdb.org/t/p/w500/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg'}} style={{width: 100, height: 150}} />
+            <View style={styles.infoColumn}>
+                <Text style={styles.MovieInfoText}>Comédia - 2020</Text>
+                <Text style={styles.MovieDescriptionText}>Lero lero lero lero lero lero lero lero lero lero lero lero lero lero lero lero lerolero lero </Text>
             </View>
         </View>
     </View>
@@ -22,15 +19,45 @@ export const MovieContainer = () => {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flexDirection: "row",
-        padding: 10,
+        flexDirection: "column",
+        width: "100%",
+        padding: 16,
         borderBottomWidth: 1,
-        borderBottomColor: "#eee"
+        borderBottomColor: "#eee",
+        backgroundColor: "#fff",
+        borderRadius: 12,
+        marginBottom: 16,
     },
     mainRow: {
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        width: "100%",
+        justifyContent: "space-between",
     },
-    
-
+    infoColumn: {
+        width: "70%"
+    },
+    photoColumn: {
+        width: "30%",
+    },
+    MovieNameText:{
+        fontWeight: "bold",
+        fontSize: 16,
+        textOverflow: "ellipsis",
+    },
+    MovieRateText:{
+        fontWeight: "bold",
+        fontSize: 14,
+        color: "#FFD700",
+    },
+    MovieInfoText:{
+        fontSize: 12,
+        color: "#666"
+    },
+    MovieDescriptionText:{
+        fontSize: 12,
+        color: "#666"
+    }
 });
+
+export default MovieContainer;
