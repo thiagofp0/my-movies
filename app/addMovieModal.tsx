@@ -4,34 +4,21 @@ import { useRouter } from "expo-router";
 import MovieContainer from "./components/MovieContainer";
 import { getMovieByName } from "../services/moviesService";
 import { MovieDTO, MoviesListDTO } from "@/services/dto/moviesListDTO";
+import {movieMocks} from "../services/database";
 
-export default function AddMovieModal() {
+
+
+export default function AddMovieModal({oldMovies, setMovies} : {oldMovies: any[]; setMovies: React.Dispatch<React.SetStateAction<any[]>>}) {
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResults, setSearchResults] = useState<MoviesListDTO | null>(null);
-  const [selectedMovie, setSelectedMovie] = useState<MovieDTO>({} as MovieDTO);
+  const [selectedMovie, setSelectedMovie] = useState<MovieDTO>();
   const [showRenderOptions, setShowRenderOptions] = useState<boolean>(true);
+  const [userRating, setUserRating] = useState<string>("");
+  const [userDescription, setUserDescription] = useState<string>("");
 
-  const getMoviesBySearch = async () => {
-    const results = await getMovieByName(searchTerm);
+  const onSearchChange = async (text: string) => {
+    const results = await getMovieByName(text);
     setSearchResults(results);
-  };
-
-  const onSearchChange = (text: string) => {
-    setSearchTerm(text);
-    getMoviesBySearch();
-  };
-
-  const renderFields = () => {
-    if (!selectedMovie) return null;
-
-    return (
-        <View style={styles.content}>
-            <MovieContainer movie={selectedMovie} />
-            <TextInput keyboardType="decimal-pad" style={styles.rateInput} placeholder="Sua nota... (Entre 0 e 10)" />
-            <TextInput multiline numberOfLines={10} style={styles.descriptionInput} placeholder="O que você achou do filme?" />
-        </View>
-    );
   };
 
   const renderOptions = () => {
@@ -53,12 +40,38 @@ export default function AddMovieModal() {
     );
   };
 
+  const renderFields = () => {
+    if (!selectedMovie || !Object.keys(selectedMovie).length) return null;
+
+    return (
+        <View style={styles.content}>
+            <MovieContainer title={selectedMovie.title} year={selectedMovie.year} description={selectedMovie.description} type={selectedMovie.type} rank={selectedMovie.rank} />
+            <TextInput onChange={(e) => {setUserRating(e.nativeEvent.text)}} keyboardType="decimal-pad" style={styles.rateInput} placeholder="Sua nota... (Entre 0 e 10)" />
+            <TextInput onChange={(e) => {setUserDescription(e.nativeEvent.text)}} multiline numberOfLines={10} style={styles.descriptionInput} placeholder="O que você achou do filme?" />
+        </View>
+    );
+  };
+
+  const addMovie = () => {
+    if(selectedMovie && Object.keys(selectedMovie).length){
+    const newMovie = {
+        title: selectedMovie.title,
+        year: selectedMovie.year,
+        description: userDescription ?? "",
+        type: selectedMovie.type ?? "",
+        rank: userRating ? Number(userRating) : selectedMovie.rank,
+    };
+      movieMocks.push(newMovie);
+      router.navigate('/');
+    }
+  };
+
   return (
     <View style={styles.container}>
         <TextInput style={styles.search} onChangeText={(e) => onSearchChange(e)} placeholder="Buscar filme..." />
         {renderOptions()}
         {renderFields()}
-        <TouchableOpacity style={selectedMovie ? styles.button : styles.buttonDisabled} onPress={() => {router.push('/')}} disabled={!selectedMovie}>
+        <TouchableOpacity style={selectedMovie && Object.keys(selectedMovie).length ? styles.button : styles.buttonDisabled} onPress={() => {addMovie()}}>
             <Text>Adicionar Filme</Text>
         </TouchableOpacity>
     </View>

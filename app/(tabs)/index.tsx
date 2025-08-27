@@ -2,12 +2,14 @@ import { TextInput, View, StyleSheet, ScrollView, TouchableHighlight, Text } fro
 import Header from "../components/Header";
 import MovieContainer from "../components/MovieContainer";
 import { useRouter } from "expo-router";
-import { useState } from "react"
+import { useState } from "react";
+import { movieMocks } from "../../services/database";
 
 export default function HomeScreen() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
-  
+  const [movies, setMovies] = useState(movieMocks);
+
   const router = useRouter();
   return (
     <View style={styles.container}>
@@ -15,20 +17,9 @@ export default function HomeScreen() {
       <View style={styles.content}>
         <TextInput placeholder="Search movies..." style={styles.search} />
         <ScrollView style={styles.feed}>
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
-          <MovieContainer />
+          {movies.map((movie) => (
+            <MovieContainer key={movie.title} {...movie} />
+          ))}
         </ScrollView>
         <TouchableHighlight
           style={styles.addButton}

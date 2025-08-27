@@ -10,6 +10,8 @@ export interface MovieDTO {
   imgPoster: string;
   photoWidth: number;
   photoHeight: number;
+description?: string;
+  type?: string;
 }
 
 export function mapMovieDTO(data: any): MovieDTO {

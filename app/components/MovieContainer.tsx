@@ -1,22 +1,22 @@
-
-import { MovieDTO } from "@/services/dto/moviesListDTO";
 import { StyleSheet, Text, View } from "react-native";
 
-const MovieContainer = (movie: MovieDTO) => {
-  return (
-    <View style={styles.mainContainer}>
-        <View style={styles.mainRow}>
-            <Text style={styles.MovieNameText}>{movie.title || "Nome do filme"}</Text>
-            <Text style={styles.MovieRateText}>{movie.rank || 0}</Text>
-        </View>
-        <View style={styles.mainRow}>
-            <View style={styles.infoColumn}>
-                <Text style={styles.MovieInfoText}>Comédia - 2020</Text>
-                <Text style={styles.MovieDescriptionText}>Lero lero lero lero lero lero lero lero lero lero lero lero lero lero lero lero lerolero lero </Text>
+
+
+const MovieContainer = ({ title, year, description, type, rank }: { title?: string; year?: number; description?: string; type?: string; rank?: number; }) => {
+    return (
+        <View style={styles.mainContainer}>
+            <View style={styles.mainRow}>
+                <Text style={styles.MovieNameText}>{title || "Nome do filme"}</Text>
+                <Text style={styles.MovieRateText}>{rank || 0}</Text>
+            </View>
+            <View style={styles.mainRow}>
+                <View style={styles.infoColumn}>
+                    <Text style={styles.MovieInfoText}>{type || "Gênero"} - {year || 0}</Text>
+                    <Text style={styles.MovieDescriptionText}>{description || "Descrição do filme"}</Text>
+                </View>
             </View>
         </View>
-    </View>
-  );
+    );
 };
 
 const styles = StyleSheet.create({
@@ -42,21 +42,21 @@ const styles = StyleSheet.create({
     photoColumn: {
         width: "30%",
     },
-    MovieNameText:{
+    MovieNameText: {
         fontWeight: "bold",
         fontSize: 16,
         textOverflow: "ellipsis",
     },
-    MovieRateText:{
+    MovieRateText: {
         fontWeight: "bold",
         fontSize: 14,
         color: "#FFD700",
     },
-    MovieInfoText:{
+    MovieInfoText: {
         fontSize: 12,
         color: "#666"
     },
-    MovieDescriptionText:{
+    MovieDescriptionText: {
         fontSize: 12,
         color: "#666"
     }
