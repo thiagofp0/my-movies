@@ -2,8 +2,12 @@ import { TextInput, View, StyleSheet, ScrollView, TouchableHighlight, Text } fro
 import Header from "../components/Header";
 import MovieContainer from "../components/MovieContainer";
 import { useRouter } from "expo-router";
+import { useState } from "react"
 
 export default function HomeScreen() {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  
   const router = useRouter();
   return (
     <View style={styles.container}>

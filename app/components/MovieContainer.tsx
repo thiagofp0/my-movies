@@ -1,11 +1,13 @@
+
+import { MovieDTO } from "@/services/dto/moviesListDTO";
 import { StyleSheet, Text, View } from "react-native";
 
-const MovieContainer = () => {
+const MovieContainer = (movie: MovieDTO) => {
   return (
     <View style={styles.mainContainer}>
         <View style={styles.mainRow}>
-            <Text style={styles.MovieNameText}>Nome do filme</Text>
-            <Text style={styles.MovieRateText}>Nota/Nota</Text>
+            <Text style={styles.MovieNameText}>{movie.title || "Nome do filme"}</Text>
+            <Text style={styles.MovieRateText}>{movie.rank || 0}</Text>
         </View>
         <View style={styles.mainRow}>
             <View style={styles.infoColumn}>
