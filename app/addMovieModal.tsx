@@ -6,9 +6,7 @@ import { getMovieByName } from "../services/moviesService";
 import { MovieDTO, MoviesListDTO } from "@/services/dto/moviesListDTO";
 import {movieMocks} from "../services/database";
 
-
-
-export default function AddMovieModal({oldMovies, setMovies} : {oldMovies: any[]; setMovies: React.Dispatch<React.SetStateAction<any[]>>}) {
+export default function AddMovieModal() {
   const router = useRouter();
   const [searchResults, setSearchResults] = useState<MoviesListDTO | null>(null);
   const [selectedMovie, setSelectedMovie] = useState<MovieDTO>();
